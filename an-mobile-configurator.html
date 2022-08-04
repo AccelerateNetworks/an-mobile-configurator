@@ -1,9 +1,17 @@
+<?php
+$agent = $_SERVER["HTTP_USER_AGENT"];
+
+if (strpos($agent,"LinphoneSDK") !== false) {
+        //TODO export config based on ios or android...
+        echo "test";
+} else {
+echo <<<EOD
 <!DOCTYPE html>
 <html>
 <body>
 <!-- Jesse was here -->
         <h2>Hello, this page will help you setup Accelerate Networks Mobile, so you can answer calls on the go!</h2>
-        <p>If you don't have the app already, you can download it from...</p>
+        <p>If you don&#39;t have the app already, you can download it from...</p>
         <p id="appstore">Detecting OS...<p>
         <p><br><br></p>
         <p id="info"></p>
@@ -40,7 +48,7 @@
                                 `Once you have our app installed, paste this click <a href="` + config + `" target="_blank" rel="noopener">here</a>!<br>
                                 <br>
                                 <br>
-                                If this doesn't work and you need to paste a URL, you can copy the next line <br>
+                                If this doesn&#39;t work and you need to paste a URL, you can copy the next line <br>
                                 <br>
                                 <br>
                                 https://acceleratenetworks.sip.callpipe.com/` + link
@@ -48,7 +56,10 @@
                         <!-- Version 1  Prototype -->
                         } else {
                         <!-- Unknown/catchall -->
+                        }
                 }
         </script>
 </body>
 </html>
+EOD;
+}?>
