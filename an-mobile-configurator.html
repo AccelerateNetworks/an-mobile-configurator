@@ -2,35 +2,53 @@
 <html>
 <body>
 <!-- Jesse was here -->
-<h2>Hello, this page will help you setup Accelerate Networks Mobile, so you can answer calls on the go!</h2>
-<p>If you don't have the app already, you can download it here
-</p>
+        <h2>Hello, this page will help you setup Accelerate Networks Mobile, so you can answer calls on the go!</h2>
+        <p>If you don't have the app already, you can download it from...</p>
+        <p id="appstore">Detecting OS...<p>
+        <p><br><br></p>
+        <p id="info"></p>
 
-<p id="appstore">Detecting device type...<p>
-<p id="demo"></p>
+        <script>
+                var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android)/);
+                var isApple = navigator.userAgent.match(/(iPhone|iPod|iPad)/);
 
-<script>
-link = window.location.href.split("?")[1].split("/")[1];
-config = "acceleratenetworks-mobile-config://" + window.location.href.split("?")[1];
-<!-- 'Once you have our app installed, please click <a href="' + config + '" target="_blank" rel="noopener">here</a>!';-->
-document.getElementById("demo").innerHTML =
-`Once you have our app installed, paste this click <a href="` + config + `" target="_blank" rel="noopener">here</a>!<br>
-<br>
-<br>
-If this doesn't work and you need to paste a URL, you can copy the next line <br>
-<br>
-<br>
-https://acceleratenetworks.sip.callpipe.com/` + link + `
-<!--<br>
-<br>
-if you have installed the beta version please click <a href="` + config + `" target="_blank" rel="noopener">here</a>!`;
+                if (isMobile) {
+                        if (isApple) {
+                        <!-- Apple devices -->
+                                document.getElementById("appstore").innerHTML = 'the <a href="https://apps.apple.com/us/app/accelerate-networks-mobile/id1560522124" target="_blank" rel="noopener">Apple App Store</a>';
+                        } else {
+                        <!-- Android devises -->
+                                document.getElementById("appstore").innerHTML = 'the <a href="https://play.google.com/store/apps/details?id=com.acceleratenetworks.mobile&hl=en_US&gl=US" target="_blank" rel="noopener">Google Play Store</a>'
+                        }
+                } else {
+                        <!-- Anything not Android or iOS -->
+                        document.getElementById("appstore").innerHTML = 'We have an <a href="https://play.google.com/store/apps/details?id=com.acceleratenetworks.mobile&hl=en_US&gl=US" target="_blank" rel="noopener">Android app</a>, and an <a href="https://apps.apple.com/us/app/accelerate-networks-mobile/id1560522124" target="_blank" rel="noopener">iOS app</a>'
+                }
+                var providedInfo = window.location.href.split("#");
 
-<!-- TODO write up a javascript to detect if using Android or iOS and give them the store for their platform along with the option to see others -->
-document.getElementById("appstore").innerHTML =
-'Currently we only have an <a href="https://play.google.com/store/apps/details?id=com.acceleratenetworks.mobile&hl=en_US&gl=US" target="_blank" rel="noopener">Android app</a>, iOS is still under development and should be ready soon&#8482'
-</script>
+                if (providedInfo.length == 1) {
+                        <!-- Blank info -->
 
+                } else {
+                        var version = providedInfo[0];
+                        if (version == 'v0') {
+                        <!-- Version 0  beta -->
+                                link = providedInfo[1].split("/")[1];
+                                config = "acceleratenetworks-mobile-config://" + window.location.href.split("#")[1];
 
-
+                                document.getElementById("demo").innerHTML =
+                                `Once you have our app installed, paste this click <a href="` + config + `" target="_blank" rel="noopener">here</a>!<br>
+                                <br>
+                                <br>
+                                If this doesn't work and you need to paste a URL, you can copy the next line <br>
+                                <br>
+                                <br>
+                                https://acceleratenetworks.sip.callpipe.com/` + link
+                        } else if (version == 'v1') {
+                        <!-- Version 1  Prototype -->
+                        } else {
+                        <!-- Unknown/catchall -->
+                }
+        </script>
 </body>
 </html>
